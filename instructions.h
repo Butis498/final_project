@@ -185,8 +185,6 @@ int getSwappedMemberPos(int ID)
             return i;
         }
     }
-
-    return -1;
 }
 
 int getProcessedMemberPos(int ID)
@@ -334,6 +332,33 @@ vector<swapMember> getAllProcessSwapped(int ID)
     }
 
     return vec;
+}
+
+vector<swapMember> delMemberSwap(int ID)
+{
+
+    vector<swapMember> vec, aux;
+
+    for (int i = swappedPages.size() - 1; i > +0; i++)
+    {
+        if (swappedPages.at(i).ID == ID)
+        {
+            vec.push_back(swappedPages.at(i));
+        }
+        else
+        {
+            aux.push_back(swappedPages.at(i));
+        }
+
+        swappedPages.pop_back();
+
+        for (int i = 0; i < swappedPages.size(); i++)
+        {
+            swappedPages.push_back(vec.at(i));
+        }
+    }
+
+    return aux;
 }
 
 //virtualAdress = is the virtual adress where in range
@@ -490,11 +515,6 @@ void P(int n, int ID)
 
             int nextFrame = asingnNextframe();
 
-            cout << endl
-                 << endl
-                 << nextFrame << endl
-                 << endl;
-
             bool swappedPage = swap(curr_page, ID, nextFrame);
 
             if (!swappedPage)
@@ -542,7 +562,10 @@ void P(int n, int ID)
 //ID = process ID
 void L(int ID)
 {
-    cout << "release frames of the process " << ID;
+
+    cout << "L " << ID << endl;
+    cout << "release frames of the process " << ID << endl;
+    ;
     if (!process_pages.at(getProcessedMemberPos(ID)).time == 0)
     {
         cout << " process has not been executed yet " << endl;
@@ -566,6 +589,7 @@ void L(int ID)
         }
     }
 
+
     vector<int> released;
     if (ALGORITHM)
     {
@@ -576,8 +600,19 @@ void L(int ID)
         released = freePagesofProcesslru(ID);
     }
 
+    vector<int> page_frames;
+
+    for (int i = 0; i < pages.size(); i++)
+    {
+        if (pages.at(i).key != 0)
+        {
+            page_frames.push_back(floor(pages.at(i).key / page_size));
+        }
+    }
+
+
     cout << "the frames ";
-    printFrames(released);
+    printFrames(page_frames);
     cout << " had been released " << endl;
 
     vector<swapMember> swapped;
@@ -594,8 +629,12 @@ void L(int ID)
             }
         }
 
-        
+        vector<swapMember> vecS = delMemberSwap(ID);
     }
+
+    current_time += (pages.size() + swapped.size() - 1);
+
+    process_pages.at(getProcessedMemberPos(ID)).key = -1;
 }
 
 void E()
