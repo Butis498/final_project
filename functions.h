@@ -7,8 +7,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#ifndef FUNCTIONS.H
-#define FUNCTIONS .H
+#ifndef FUNCTIONSH
+#define FUNCTIONSH
+
+void inicialize () {
+
+    for (int i = 0; i < virtualMemorySize; i++)
+    {
+        virtualMemory[i] = -1;
+    }
+
+    for (int i = 0; i < realMemorySize; i++)
+    {
+        realMemory[i] = -1;
+    }
+    
+    
+}
 
 bool setAlgorithm()
 {
@@ -97,9 +112,9 @@ void openFile()
     string path;
 
     cout << "path followed by file name: " << endl;
-    cin >> path;
+   // cin >> path;
     //open file
-    test_file.open(path);
+    test_file.open("final_test.txt");
 
     while (!test_file.eof())
     {

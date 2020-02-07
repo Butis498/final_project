@@ -1,13 +1,16 @@
 #include <iostream>
-#include <iostream>
 #include <string>
 #include <math.h>
 #include "functions.h"
 #include "instructions.h"
+#include <ctime>
+
 using namespace std;
+
 
 int main(int argc, char const *argv[])
 {
+
 
    //set the fifo or the lru algorithm
    //if not a correct option program ends
@@ -18,8 +21,9 @@ int main(int argc, char const *argv[])
    }
 
    openFile();
+   inicialize();
 
-   for (int i = 0; i < instructionsArg.size() - 1; i++)
+   for (int i = 0; i < instructionsArg.size() ; i++)
    {
       //instruction to do
       char INST = instructionsArg.at(i).at(0)[0];
