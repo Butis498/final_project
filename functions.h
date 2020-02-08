@@ -14,12 +14,12 @@ void inicialize () {
 
     for (int i = 0; i < virtualMemorySize; i++)
     {
-        virtualMemory[i] = -1;
+        virtualMemory[i].proceso = -1;
     }
 
     for (int i = 0; i < realMemorySize; i++)
     {
-        realMemory[i] = -1;
+        realMemory[i].proceso = -1;
     }
     
     
